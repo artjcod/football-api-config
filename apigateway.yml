@@ -1,0 +1,20 @@
+server:
+  port: 6060
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: albums-service
+          uri: lb://album-service
+          predicates:
+            - Path=/api/albums/**
+          filters:
+            - StripPrefix=1
+        - id: players-service
+          uri: lb://players-service
+          predicates:
+            - Path=/api/players/**
+          filters:
+            - StripPrefix=1
